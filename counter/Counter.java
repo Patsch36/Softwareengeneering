@@ -1,4 +1,4 @@
-package counter;
+// package counter;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;

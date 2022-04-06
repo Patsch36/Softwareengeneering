@@ -11,17 +11,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;  
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-
+// import java.awt.*;
+// import java.awt.event.*;
+// import javax.swing.*;
+// import javax.swing.event.*;
 
 
 public class View {
 
-    public View() {
+    private EventDispatcher disp;
+    private int count;
+    public static MainPane mainpane;
+
+    public View(EventDispatcher dispatcher ) {
+
+        this.count = 0;
+
+        this.disp = dispatcher;
+        View.mainpane = new MainPane(this.disp);
+
         EventQueue.invokeLater(new Runnable() {
+
+
             @Override
             public void run() {
                 try {
@@ -32,7 +43,7 @@ public class View {
 
                 JFrame frame = new JFrame("Counter");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.add(new TestPane());
+                frame.add(View.mainpane);
                 frame.pack();
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
@@ -40,9 +51,24 @@ public class View {
         });
     }
 
-    public class TestPane extends JPanel {
+    public void changeCount(Events e){
+        if (e == Events.INCREASE){
+            this.count += 1;
+        }
+        if (e == Events.DECREASE){
+            this.count -= 1;
+        }
 
-        public TestPane() {
+        View.mainpane.changeCount(this.count);
+    }
+
+    public class MainPane extends JPanel {
+
+        private JLabel countLable;
+
+        public MainPane(EventDispatcher dispatcher) {
+            EventDispatcher disp = dispatcher;
+
             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.gridwidth = GridBagConstraints.REMAINDER; // This is a trick
@@ -50,28 +76,22 @@ public class View {
             JPanel thePanel = new JPanel();
             this.add(thePanel);
 
-            JLabel header = new JLabel("Actual Coumt");
-            add(header, gbc);
+            this.countLable = new JLabel("Actual Count");
+            add(countLable, gbc);
 
             JButton increase = new JButton("Increase");
             add(increase, gbc);
 
-            increase.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Add here method to be excecuted
-                }
-            });
+            increase.addActionListener(e->disp.notifyObserver(Events.INCREASE));
 
             JButton decrease = new JButton("Decrease");
             add(decrease, gbc);
 
-            decrease.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Add here method to be excecuted
-                }
-            });
+            decrease.addActionListener(e->disp.notifyObserver(Events.DECREASE));
+        }
+
+        public void changeCount(int number){
+            this.countLable.setText("Actual Count: " + Integer.toString(number));
         }
 
     }

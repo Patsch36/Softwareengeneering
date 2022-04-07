@@ -1,7 +1,7 @@
 /**
  * controller
  */
-public class Controller implements EventObserver {
+public class Controller implements iController {
     private View view;
     private Model model;
 
@@ -17,7 +17,7 @@ public class Controller implements EventObserver {
             this.model.changeCount(e);
         }
 
-        View.mainpane.changeCount(this.model.getCount());
+        this.view.changeCountView(this.model.getCount());
     }
     
 }

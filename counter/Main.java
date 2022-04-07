@@ -10,7 +10,6 @@ public class Main {
         View view = new View(dispatcher);
 
         Model model = new Model();
-        dispatcher.addEventObserver(model);
 
         Controller controller = new Controller(view, model);
         dispatcher.addEventObserver(controller);

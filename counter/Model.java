@@ -1,7 +1,7 @@
 /**
  * model
  */
-public class Model implements EventObserver {
+public class Model implements iModel {
 
     private int count;
 
@@ -20,11 +20,5 @@ public class Model implements EventObserver {
 
     public int getCount(){
         return this.count;
-    }
-
-    @Override
-    public void eventHandler(Events e) {
-        // TODO Auto-generated method stub
-        
     }
 }

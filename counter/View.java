@@ -20,12 +20,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class View {
 
     private EventDispatcher disp;
-    private int count;
     public static MainPane mainpane;
 
     public View(EventDispatcher dispatcher ) {
-
-        this.count = 0;
 
         this.disp = dispatcher;
         View.mainpane = new MainPane(this.disp);
@@ -49,17 +46,6 @@ public class View {
                 frame.setVisible(true);
             }
         });
-    }
-
-    public void changeCount(Events e){
-        if (e == Events.INCREASE){
-            this.count += 1;
-        }
-        if (e == Events.DECREASE){
-            this.count -= 1;
-        }
-
-        View.mainpane.changeCount(this.count);
     }
 
     public class MainPane extends JPanel {

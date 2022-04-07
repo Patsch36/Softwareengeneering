@@ -14,9 +14,10 @@ public class Controller implements EventObserver {
     public void eventHandler(Events e) {
         
         if(e == Events.INCREASE || e == Events.DECREASE){
-            this.view.changeCount(e);
+            this.model.changeCount(e);
         }
-        
+
+        View.mainpane.changeCount(this.model.getCount());
     }
     
 }

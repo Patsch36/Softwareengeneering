@@ -1,3 +1,5 @@
+package counter;
+
 public interface iModel{
     public abstract void changeCount(Events e);
 

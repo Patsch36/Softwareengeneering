@@ -1,4 +1,4 @@
-package counter;
+package Designpatterns.ObserverPattern;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * EventDispatcher
  */
-public class EventDispatcher {
+public class EventDispatcher implements iEventDispatcher {
 
     private static List<EventObserver> myList = new ArrayList<>();
 
